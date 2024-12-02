@@ -1,0 +1,12 @@
+{
+  "name": "orange_hackaton_client",
+  "type": "module",
+  "version": "0.0.1",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "STAMP",
+  "license": "MIT",
+  "description": ""
+}
