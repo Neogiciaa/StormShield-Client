@@ -2,57 +2,36 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0 max-scale=5.0">
-    <title>Weather App</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=yes, initial-scale=1.0 minimum-scale=1.0 max-scale=5.0">
+    <title>StormShield</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-<header>
-    <h1>Météo</h1>
-    <input type="text" placeholder="Recherchez une ville..." id="city-input">
-</header>
-
 <main>
-    <section id="current-weather">
-        <h2>Météo du jour</h2>
-        <p>Ville: Paris</p>
-        <p>Température: 22°C</p>
-        <p>Conditions: Ciel dégagé</p>
+    <section class="hero-banner">
+        <h1>StormShield</h1>
+    </section>
+    <section class="search-input">
+        <h2>Rechercher une ville</h2>
+        <label for="search-input">
+            <input id="search-input" type="text" placeholder="Rechercher une ville">
+        </label>
     </section>
 
-    <section id="alerts">
-        <h2>Alertes météorologiques</h2>
-        <div class="alert green">
-            <h3>Alerte Verte</h3>
-            <p>Aucune menace détectée.</p>
-        </div>
-        <div class="alert orange">
-            <h3>Alerte Orange</h3>
-            <p>Vents forts attendus.</p>
-        </div>
-        <div class="alert red">
-            <h3>Alerte Rouge</h3>
-            <p>Tornade en cours dans la région.</p>
-        </div>
-    </section>
-
-    <section id="forecast">
-        <h2>Prévisions pour les prochains jours</h2>
-        <div class="day">
-            <h3>Demain</h3>
-            <p>Température: 18°C</p>
-            <p>Conditions: Pluie légère</p>
-        </div>
-        <div class="day">
-            <h3>Après-demain</h3>
-            <p>Température: 20°C</p>
-            <p>Conditions: Nuageux</p>
-        </div>
-        <div class="day">
-            <h3>Dans 3 jours</h3>
-            <p>Température: 23°C</p>
-            <p>Conditions: Ensoleillé</p>
-        </div>
+    <section class="alerts">
+        <h2>Alertes en cours</h2>
+        <section class="alert-container">
+            <article>
+                <h3>Risque faible</h3>
+                <ul>
+                    <li>Alerte ce jeudi, vents forts (+130km/h)</li>
+                    <li>Alerte ce jeudi, vents forts (+130km/h)</li>
+                    <li>Alerte ce jeudi, vents forts (+130km/h)</li>
+                </ul>
+            </article>
+        </section>
     </section>
 </main>
 </body>
