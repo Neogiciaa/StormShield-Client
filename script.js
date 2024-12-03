@@ -1,12 +1,18 @@
-function fetchWeatherData(lat, long) {
-    navigator.geolocation.getCurrentPosition(success);
+async function fetchWeatherData(lat, lon) {
+    try {
+        const data = await fetch(`http://localhost:3000/api/getWeatherDatas?lat=${lat}&lon=${lon}`);
+        console.log(data);
+    } catch (error) {
+        console.error(error.message);
+    }
 }
 
-function success(pos) {
-    var crd = pos.coords;
+async function success(pos) {
+    const coordinates = pos.coords;
 
-    const lat = crd.latitude;
-    const long = crd.longitude;
-
-    fetchWeatherData(lat, long);
+    const lat = coordinates.latitude;
+    const lon = coordinates.longitude;
+    fetchWeatherData(lat, lon);
 }
+
+navigator.geolocation.getCurrentPosition(success);
