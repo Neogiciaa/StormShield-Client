@@ -28,21 +28,48 @@ main {
 }
 
 .search-input {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     margin-top: 2rem;
+    display: grid;
+    grid-template-areas:
+    'title title title'
+    'bar bar button';
+    grid-gap: 2rem;
     justify-content: center;
+    align-items: center;
     width: 100%;
     color: cornflowerblue;
 
+    h2 {
+        grid-area: title;
+        text-align: center;
+    }
+
     #search-input {
+        grid-area: bar;
         width: 16rem;
         border: 1px solid black;
         border-radius: 15px;
-        margin-top: 0.7rem;
         padding: 0.7rem;
         text-align: center;
+    }
+
+    #search-button {
+        grid-area: button;
+        height: 2rem;
+        aspect-ratio: 2;
+        padding: 0.1rem;
+        border: deepskyblue solid 1px;
+        border-radius: 15px;
+        background-color: cornflowerblue;
+
+        &:active {
+            background-color: deepskyblue;
+        }
+
+        img {
+            height: 60%;
+            object-fit: contain;
+        }
     }
 }
 
