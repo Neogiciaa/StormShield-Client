@@ -30,12 +30,28 @@
         </button>
     </section>
 
-    <section class="alerts">
-        <h2>Alertes en cours</h2>
+    <section class="alert">
+        <h2 class="alert-title">Alertes en cours</h2>
         <section class="alert-container">
-            <article>
-                <h3>Risque faible</h3>
-                <ul id="alert-list">
+            <article class="alert-data" id="alert-high">
+                <h3>Risques élevés</h3>
+                <ul class="alert-list">
+                    <li>Alerte ce jeudi</li>
+                    <li>Alerte ce jeudi, vents forts (+130km/h)</li>
+                    <li>Alerte ce jeudi, vents forts (+1000000000000000000000000 km/h)</li>
+                </ul>
+            </article>
+            <article class="alert-data" id="alert-medium">
+                <h3>Risques modérés</h3>
+                <ul class="alert-list">
+                    <li>Alerte ce jeudi, vents forts (+130km/h)</li>
+                    <li>Alerte ce jeudi, vents forts (+130km/h)</li>
+                    <li>Alerte ce jeudi, vents forts (+130km/h)</li>
+                </ul>
+            </article>
+            <article class="alert-data" id="alert-low">
+                <h3>Risques faibles</h3>
+                <ul class="alert-list">
                     <li>Alerte ce jeudi, vents forts (+130km/h)</li>
                     <li>Alerte ce jeudi, vents forts (+130km/h)</li>
                     <li>Alerte ce jeudi, vents forts (+130km/h)</li>
@@ -45,28 +61,31 @@
     </section>
 
     <section class="weather">
-        <section class="weather-container" id="container-1">
-            <h2 class="weather-date">30-12-2024</h2>
-            <ul class="weather-data">
-                <li>temperature : 10°C</li>
-                <li>humidity : 10%</li>
-            </ul>
-        </section>
-        <section class="weather-container" id="container-2">
-            <h2 class="weather-date">30-12-2024</h2>
-            <ul class="weather-data"></ul>
-        </section>
-        <section class="weather-container" id="container-3">
-            <h2 class="weather-date">30-12-2024</h2>
-            <ul class="weather-data"></ul>
-        </section>
-        <section class="weather-container" id="container-4">
-            <h2 class="weather-date">30-12-2024</h2>
-            <ul class="weather-data"></ul>
-        </section>
-        <section class="weather-container" id="container-5">
-            <h2 class="weather-date">30-12-2024</h2>
-            <ul class="weather-data"></ul>
+        <h2 class="weather-title">Prédictions météo</h2>
+        <section class="weather-container">
+            <section class="weather-data" id="weather-1">
+                <h3 class="weather-date">30-12-2024</h3>
+                <ul class="weather-list">
+                    <li>temperature : 10°C</li>
+                    <li>humidity : 10%</li>
+                </ul>
+            </section>
+            <section class="weather-data" id="weather-2">
+                <h3 class="weather-date">30-12-2024</h3>
+                <ul class="weather-list"></ul>
+            </section>
+            <section class="weather-data" id="weather-3">
+                <h3 class="weather-date">30-12-2024</h3>
+                <ul class="weather-list"></ul>
+            </section>
+            <section class="weather-data" id="weather-4">
+                <h3 class="weather-date">30-12-2024</h3>
+                <ul class="weather-list"></ul>
+            </section>
+            <section class="weather-data" id="weather-5">
+                <h3 class="weather-date">30-12-2024</h3>
+                <ul class="weather-list"></ul>
+            </section>
         </section>
     </section>
 </main>

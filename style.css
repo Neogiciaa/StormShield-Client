@@ -5,7 +5,7 @@
     margin: 0;
     padding: 0;
 
-    /*--light-bg-color: #f8f8ff;*/
+    /*Variables*/
     --light-bg-color: lavender;
     --dark-bg-color: #1e1e1e;
 
@@ -18,6 +18,7 @@
     --dark-font-color: white;
 
     --container-border-radius: 15px;
+    --container-width: 95vw;
 }
 
 :root {
@@ -131,7 +132,6 @@ main {
         border: 1px solid light-dark(var(--dark-container-color), var(--light-container-color));
         border-radius: var(--container-border-radius);
         background-color: var(--main-element-color);
-        /*justify-self: center;*/
 
         &:active {
             background-color: deepskyblue;
@@ -146,37 +146,81 @@ main {
 
 .alert {
     display: grid;
-    grid-template-areas:
-    "";
-    align-items: center;
-    justify-content: center;
+    grid-auto-flow: row;
+    place-items: center;
+    grid-gap: 1rem;
+    color: var(--main-element-color);
+    text-align: center;
+    word-break: break-word;
 
+    .alert-container {
+        display: grid;
+        grid-auto-flow: row;
+        place-items: center;
+        grid-gap: 2rem;
+        color: light-dark(var(--light-font-color), var(--dark-font-color));
+        background-color: light-dark(var(--light-container-color), var(--dark-container-color));
+        width: var(--container-width);
+        border: 1px solid light-dark(var(--dark-container-color), var(--light-container-color));
+        border-radius: var(--container-border-radius);
+        padding: 0.7rem;
+
+        .alert-data {
+            display: grid;
+            grid-auto-flow: row;
+            grid-gap: 1rem;
+            place-items: center;
+
+            .alert-list {
+                list-style: none;
+                display: grid;
+                grid-auto-flow: row;
+                grid-gap: 1rem;
+                place-items: center;
+
+                li {
+                    border: 1px solid light-dark(var(--dark-container-color), var(--light-container-color));
+                    border-radius: var(--container-border-radius);
+                    padding: 0.7rem;
+                    width: 100%;
+                }
+            }
+        }
+    }
 }
 
 .weather {
     display: grid;
     grid-auto-flow: row;
     grid-gap: 1rem;
-    justify-content: center;
+    place-items: center;
     margin: 1rem 0 0 0;
+    text-align: center;
+
+    .weather-title {
+        color: var(--main-element-color);
+    }
 
     .weather-container {
-        display: flex;
-        flex-direction: column;
-        justify-content: start;
-        align-items: start;
-        background-color: light-dark(var(--light-container-color), var(--dark-container-color));
-        width: 80vw;
-        border: 1px solid light-dark(var(--dark-container-color), var(--light-container-color));
-        border-radius: var(--container-border-radius);
-        padding: 0.7rem;
-
-        .weather-date {
-            display: inline;
-        }
+        display: grid;
+        grid-gap: 1rem;
+        width: var(--container-width);
 
         .weather-data {
-            list-style: none;
+            display: flex;
+            flex-direction: column;
+            background-color: light-dark(var(--light-container-color), var(--dark-container-color));
+            border: 1px solid light-dark(var(--dark-container-color), var(--light-container-color));
+            border-radius: var(--container-border-radius);
+            padding: 0.7rem;
+
+            .weather-date {
+                display: inline;
+            }
+
+            .weather-list {
+                list-style: none;
+            }
         }
     }
 }
@@ -191,15 +235,34 @@ main {
 
     }
 
+    .alert {
+        text-align: left;
+
+        .alert-container {
+            grid-auto-flow: column;
+            grid-template-columns: repeat(3, 1fr);
+            place-items: center;
+            align-items: start;
+
+            .alert-data {
+                .alert-list {
+                    place-items: start;
+                }
+            }
+        }
+    }
+
     .weather {
-        grid-auto-flow: column;
-
         .weather-container {
-            min-width: fit-content;
-            max-width: 16vw;
+            grid-auto-flow: column;
 
-            .weather-date {
-                font-size: larger;
+            .weather-data {
+                /*min-width: fit-content;*/
+                /*max-width: 16vw;*/
+
+                .weather-date {
+                    font-size: larger;
+                }
             }
         }
     }
