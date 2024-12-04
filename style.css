@@ -5,7 +5,8 @@
     margin: 0;
     padding: 0;
 
-    --light-bg-color: #f8f8ff ;
+    /*--light-bg-color: #f8f8ff;*/
+    --light-bg-color: lavender;
     --dark-bg-color: #1e1e1e;
 
     --light-container-color: #ffffff;
@@ -15,6 +16,8 @@
 
     --light-font-color: black;
     --dark-font-color: white;
+
+    --container-border-radius: 15px;
 }
 
 :root {
@@ -95,15 +98,15 @@ main {
 }
 
 .search-input {
-    margin-top: 2rem;
     display: grid;
     grid-template-areas:
-    'title title title'
-    'bar bar button';
+    "title"
+    "bar"
+    "button";
     grid-gap: 2rem;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
+    place-items: center;
+    width: fit-content;
+    margin: 2rem auto;
     color: var(--main-element-color);
 
     h2 {
@@ -115,7 +118,7 @@ main {
         grid-area: bar;
         width: 16rem;
         border: 1px solid light-dark(var(--dark-container-color), var(--light-container-color));
-        border-radius: 15px;
+        border-radius: var(--container-border-radius);
         padding: 0.7rem;
         text-align: center;
         background-color: light-dark(var(--light-container-color), var(--dark-container-color));
@@ -126,8 +129,9 @@ main {
         height: 2.5rem;
         aspect-ratio: 2;
         border: 1px solid light-dark(var(--dark-container-color), var(--light-container-color));
-        border-radius: 15px;
+        border-radius: var(--container-border-radius);
         background-color: var(--main-element-color);
+        /*justify-self: center;*/
 
         &:active {
             background-color: deepskyblue;
@@ -149,6 +153,54 @@ main {
 
 }
 
+.weather {
+    display: grid;
+    grid-auto-flow: row;
+    grid-gap: 1rem;
+    justify-content: center;
+    margin: 1rem 0 0 0;
 
+    .weather-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: start;
+        background-color: light-dark(var(--light-container-color), var(--dark-container-color));
+        width: 80vw;
+        border: 1px solid light-dark(var(--dark-container-color), var(--light-container-color));
+        border-radius: var(--container-border-radius);
+        padding: 0.7rem;
 
+        .weather-date {
+            display: inline;
+        }
 
+        .weather-data {
+            list-style: none;
+        }
+    }
+}
+
+@media only screen and (800px <= width) {
+    .search-input {
+        grid-template-areas:
+        'title title title'
+        'bar bar button';
+        place-items: unset;
+        justify-items: center;
+
+    }
+
+    .weather {
+        grid-auto-flow: column;
+
+        .weather-container {
+            min-width: fit-content;
+            max-width: 16vw;
+
+            .weather-date {
+                font-size: larger;
+            }
+        }
+    }
+}
