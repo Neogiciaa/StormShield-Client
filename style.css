@@ -14,8 +14,58 @@ body {
     justify-content: center;
 }
 
+body.no-scroll {
+    overflow: hidden;
+    height: 100%;
+}
+
 main {
     width: 100%;
+}
+
+.hidden {
+    display: none;
+}
+
+.geolocation-modal {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    background: rgb(32,78,213);
+    background: linear-gradient(90deg, rgba(32,78,213,1) 0%, rgba(64,227,240,1) 100%, rgba(132,233,233,1) 100%);
+
+    h1 {
+        font-size: 2rem;
+        margin-bottom: 5rem;
+
+        mark {
+            background: none;
+            text-shadow: 0 0 20px #d22e72;
+            color: white;
+        }
+    }
+
+    p {
+        font-size: 1.5rem;
+        margin-bottom: 2.5rem;
+    }
+
+    button {
+        background: whitesmoke;
+        border: 0.2rem solid black;
+        border-radius: 0.8rem;
+        padding: 1rem;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    button:hover {
+        cursor: pointer;
+        transform: scale(1.08);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
 }
 
 .hero-banner {

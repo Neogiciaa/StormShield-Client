@@ -1,3 +1,51 @@
+document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.querySelector('.geolocation-modal');
+    const geolocationButton = document.getElementById('geolocation-btn');
+
+    const storedLat = localStorage.getItem('latitude');
+    const storedLon = localStorage.getItem('longitude');
+
+    if (storedLat && storedLon) {
+        fetchWeatherData(storedLat, storedLon);
+        modal.style.display = 'none';
+    } else {
+        document.documentElement.classList.add('no-scroll');
+        document.body.classList.add('no-scroll');
+
+        geolocationButton.addEventListener('click', () => {
+            navigator.geolocation.getCurrentPosition(
+                (pos) => handleGeolocationSuccess(pos, modal),
+                () => handleGeolocationError(modal)
+            );
+        });
+    }
+});
+
+async function handleGeolocationSuccess(pos, modal) {
+    modal.style.display = 'none';
+    document.documentElement.classList.remove('no-scroll');
+    document.body.classList.remove('no-scroll');
+
+    const coordinates = pos.coords;
+    const lat = coordinates.latitude;
+    const lon = coordinates.longitude;
+
+    localStorage.setItem('latitude', lat);
+    localStorage.setItem('longitude', lon);
+
+    await fetchWeatherData(lat, lon);
+}
+
+function handleGeolocationError(modal) {
+    modal.style.display = 'none';
+    document.documentElement.classList.remove('no-scroll');
+    document.body.classList.remove('no-scroll');
+
+    document.querySelector('.search-input').style.display = 'block';
+    document.querySelector('.hero-banner').style.display = 'flex';
+    document.querySelector('.alerts').style.display = 'flex';
+}
+
 async function fetchWeatherData(lat, lon) {
     try {
         const response = await fetch(`http://localhost:3000/api/getWeatherDatas?lat=${lat}&lon=${lon}`);
@@ -8,51 +56,10 @@ async function fetchWeatherData(lat, lon) {
     }
 }
 
-function displayWeatherData(data) {
-
-}
-
-async function success(pos) {
-    const coordinates = pos.coords;
-
-    const lat = coordinates.latitude;
-    const lon = coordinates.longitude;
-    const data = fetchWeatherData(lat, lon);
-}
-
-function error() {}
-
-navigator.geolocation.getCurrentPosition(success, error);
-
-function searchForCity() {
-
-}
-
-async function autocomplete() {
-    const cityName = this.value.trim();
-    // TODO send to backend for autocomplete
-
-    if (!cityName) {
-
-        while (this.children) {
-            this.removeChild(this.lastChild);
-        }
-    }
-
-    const ul = document.querySelector("#alert-list");
-
-    try {
-        // TODO fetch and process data from server
-        // const response = await fetch();
-        const data = await response.json();
-        data.forEach(city => {
-            const li = document.createElement("li");
-            li.value = city.name;
-            ul.appendChild(li);
-        });
-    } catch (error) {
-        console.error(error.message);
-    }
+async function displayWeatherData(data) {
+    data.forEach((weatherData) => {
+        console.log(weatherData);
+    });
 }
 
 const input = document.querySelector('#search-input');
