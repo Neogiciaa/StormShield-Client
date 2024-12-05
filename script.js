@@ -50,24 +50,49 @@ async function fetchWeatherData(lat, lon) {
     try {
         const response = await fetch(`http://localhost:3000/api/getWeatherDatas?lat=${lat}&lon=${lon}`);
         const data = await response.json();
-        displayWeatherData(data);
+        displayWeatherData(data.weatherDataFormatted);
     } catch (error) {
         console.error(error.message);
     }
 }
 
+const btn = document.querySelector('.geof');
+btn.addEventListener('click', async (e) => {
+    console.log("Btn clicked")
+    try {
+        const response = await axios.post('http://localhost:3000/api/createDangerZone');
+        console.log("Post fini")
+        const res = await response.json();
+        console.log("Res -> ", res.status);
+    } catch (error) {
+        console.log("error -> ", error);
+    }
+})
+
 function displayWeatherData(data) {
-    data.forEach((weatherData) => {
-        console.log(weatherData);
-    });
+    const results = document.querySelector('.weather-container');
 
-    createWeatherContainer(data);
-}
+    results.innerHTML = data.map(day => {
+        const dateObj = new Date(day.date);
+        const formattedDate = new Intl.DateTimeFormat('fr-FR', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        }).format(dateObj);
 
-function createWeatherContainer(weatherData) {
-    const weather = document.querySelector(".weater");
-    if (!weather) {return;}
-    // TODO fill .weather-container h2 and ul with data
+        return `
+        <section class="weather-card">
+            <h3>${formattedDate}</h3>
+            <p><b>Nuages :</b> ${day.cloud}%</p>
+            <p><b>Pression :</b> ${day.pressure} hPa</p>
+            <p><b>Température :</b> ${day.temperature}°C</p>
+            <p><b>Pluie :</b> ${day.rain} mm</p>
+            <p><b>Neige :</b> ${day.snow} mm</p>
+            <p><b>Vent :</b> ${day.wind} km/h</p>
+        </section>
+    `;
+    }).join('');
+
 }
 
 function autocomplete(event) {
@@ -105,9 +130,4 @@ async function suggestCity(event) {
 const input = document.querySelector('#search-input');
 if (input) {
     input.addEventListener('input', suggestCity);
-}
-
-const button = document.querySelector('#search-button');
-if (button) {
-    button.addEventListener('click', searchForCity);
 }
