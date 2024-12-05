@@ -7,6 +7,7 @@
     <title>StormShield</title>
     <link rel="stylesheet" href="style.css">
     <script defer src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 
 <body>
@@ -17,6 +18,8 @@
         <button id="geolocation-btn">Demander la permission</button>
     </section>
 
+    <button id="geof" class="geof">Test geofencing</button>
+
     <section class="hero-banner">
         <h1>StormShield</h1>
     </section>
@@ -25,23 +28,8 @@
         <h2>Rechercher une ville</h2>
 <!--        <label for="search-input"></label>-->
         <div class="search-bar">
-            <input id="search-input" type="text" placeholder="Rechercher une ville">
+            <label for="search-input"></label><input id="search-input" type="text" placeholder="Rechercher une ville">
             <ul id="search-suggestions">
-                <li>test</li>
-                <li>bim bam boum</li>
-                <li>bim bam boum</li>
-                <li>bim bam boum</li>
-                <li>bim bam boum</li>
-                <li>bim bam boum</li>
-                <li>bim bam boum</li>
-                <li>bim bam boum</li>
-                <li>bim bam boum</li>
-                <li>bim bam boum</li>
-                <li>bim bam boum</li>
-                <li>bim bam boum</li>
-                <li>bim bam boum</li>
-                <li>bim bam boum</li>
-                <li>bim bam boum</li>
             </ul>
         </div>
         <button id="search-button">
