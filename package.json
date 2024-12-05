@@ -8,5 +8,8 @@
   },
   "author": "STAMP",
   "license": "MIT",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "axios": "^1.7.9"
+  }
 }
