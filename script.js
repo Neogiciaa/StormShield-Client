@@ -56,6 +56,7 @@ async function fetchWeatherData(lat, lon) {
         const response = await fetch(`http://localhost:3000/api/getWeatherDatas?lat=${lat}&lon=${lon}`);
         const data = await response.json();
         displayWeatherData(data.weatherDataFormatted);
+        fetchAlerts(lat, lon);
     } catch (error) {
         console.error(error.message);
     }
@@ -182,13 +183,16 @@ function createCustomAlertModal() {
     createAlert.addEventListener('click', (event) => {
         event.preventDefault();
 
+        if (!desc.value || !emp.value || !dat.value) {
+            return;
+        }
+
         const list = document.querySelector('.custom-alert-list');
+        list.innerHTML = '';
 
         const li = document.createElement('li');
         li.innerHTML = `
-            <p>Emplacement : ${emp.value}</p>
-            <p>Description : ${desc.value}</p>
-            <p>Date : ${dat.value}</p>
+            <p>${emp.value} - ${desc.value} - ${dat.value}</p>
         `;
 
         list.appendChild(li);
@@ -202,4 +206,91 @@ function createCustomAlertModal() {
     dat.value = '';
 }
 
+async function fetchAlerts(lat, lon) {
+    try {
+        const response = await axios.get(`http://localhost:3000/api/getAlerts?lat=${lat}&lon=${lon}`);
 
+        const alerts = response.data;
+
+        const dataContainer = document.querySelector('.medium-alert-list');
+
+        if (alerts.length === 0) {
+            dataContainer.innerHTML = `<p>Pas d'alerte détectée pour le moment !</p>`;
+            return;
+        }
+
+        dataContainer.innerHTML = alerts.map(alert => {
+            return `
+                <li class="weather-card">
+                    <p>${alert.name} - ${alert.intensity} </p>
+                </li>
+            `;
+        }).join('');
+
+    } catch (error) {
+        console.error("Erreur lors de la récupération des alertes :", error);
+    }
+}
+
+async function fetchCustomAlerts() {
+    try {
+        const response = await axios.get('http://localhost:3000/api/getAllWarningAlert');
+        const alerts = response.data;
+
+        const customAlertsContainer = document.querySelector('.custom-alert-list');
+
+        customAlertsContainer.innerHTML = '';
+
+        if (alerts.length === 0) {
+            customAlertsContainer.innerHTML = `<p>Pas d'indicent rapporté pour le moment !</p>`;
+            return;
+        }
+
+        customAlertsContainer.innerHTML = alerts.map(alert => {
+            return `
+            <li>
+                <p>${alert.description} - Votes : ${alert.vote}</p>
+                <picture>
+                    <img src="img/thumbsup.svg" alt="thumbsup" />
+                    <img src="img/thumbsdown.svg" alt="thumbsdown" />
+                </picture>
+            </li>
+            `;
+        }).join('');
+
+        fetchNotifications();
+
+    } catch (error) {
+        console.error(error.message);
+    }
+}
+
+fetchCustomAlerts();
+
+async function fetchNotifications() {
+    try {
+        const response = await axios.get('https://sink-server-hackaton.vercel.app/sinks');
+        const notifications = response.data;
+
+        const notificationContainer = document.querySelector('.notifications-container');
+
+        notificationContainer.innerHTML = '';
+
+        notifications.forEach(notification => {
+            const eventType = notification.type.includes('subscription-ends')
+                ? 'Sortie de zone de danger, vous êtes en sécurité'
+                : 'Entrée dans une zone de danger';
+
+            const notifHtml = `
+                <li>
+                    ${eventType} - Le ${new Date(notification.time).toLocaleString()}
+                </li>
+            `;
+
+            notificationContainer.innerHTML += notifHtml;
+        });
+
+    } catch (error) {
+        console.error('Erreur lors de la récupération des notifications:', error);
+    }
+}
