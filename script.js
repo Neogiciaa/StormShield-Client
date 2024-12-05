@@ -61,6 +61,16 @@ async function fetchWeatherData(lat, lon) {
     }
 }
 
+async function fetchWeatherDataByCityName(cityName) {
+    try {
+        const response = await fetch(`http://localhost:3000/api/getWeatherDatasByCityName?q=${cityName}`);
+        const data = await response.json();
+        displayWeatherData(data.weatherDataFormatted);
+    } catch (error) {
+        console.error(error.message);
+    }
+}
+
 const btn = document.querySelector('.geof');
 btn.addEventListener('click', async (e) => {
     console.log("Btn clicked")
@@ -103,6 +113,16 @@ function displayWeatherData(data) {
 function autocomplete(event) {
     const searchInput = document.querySelector('#search-input');
     searchInput.value = this.innerText;
+
+    const city = event.target;
+    const cityName = city.getAttribute("data-name");
+    searchInput.value = cityName;
+
+    if (cityName.length > 1) {
+        fetchWeatherDataByCityName(cityName);
+    }
+
+    event.preventDefault();
 }
 
 const searchInput = document.querySelector('#search-input');
