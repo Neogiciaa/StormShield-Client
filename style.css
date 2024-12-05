@@ -81,6 +81,8 @@ main {
         border-radius: 0.8rem;
         padding: 1rem;
         transition: transform 0.3s ease, box-shadow 0.3s ease;
+        color: black;
+        font-weight: bold;
     }
 
     button:hover {
@@ -207,7 +209,7 @@ main {
             grid-gap: 1rem;
             place-items: center;
 
-            .alert-list, .custom-alert-list {
+            .high-alert-list, .medium-alert-list, .custom-alert-list {
                 list-style: none;
                 display: grid;
                 grid-auto-flow: row;
@@ -219,6 +221,13 @@ main {
                     border-radius: var(--container-border-radius);
                     padding: 0.7rem;
                     width: 100%;
+
+                    img {
+                        width: 20px;
+                        margin-top: 10px;
+                        margin-right: 15px;
+                        cursor: pointer;
+                    }
                 }
             }
         }
