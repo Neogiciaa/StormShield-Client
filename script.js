@@ -1,4 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const suggestionList = document.querySelector('#search-suggestions');
+    if (!suggestionList.children.length) {
+        suggestionList.classList.add('hidden');
+    }
+
     const modal = document.querySelector('.geolocation-modal');
     const geolocationButton = document.getElementById('geolocation-btn');
 
@@ -100,34 +105,41 @@ function autocomplete(event) {
     searchInput.value = this.innerText;
 }
 
-async function suggestCity(event) {
+const searchInput = document.querySelector('#search-input');
+searchInput.addEventListener('input', suggestCity);
+
+async function suggestCity() {
     const cityName = this.value.trim();
     const suggestionList = document.querySelector('#search-suggestions');
 
     try {
-        // TODO move fetch to backend and delete API_KEY before setting the project to public
         const API_KEY = "1a85c27187a392a72295f56a04cf54bc"; // REMOVE THIS
 
         if (!cityName) {
             suggestionList.innerHTML = "";
+            suggestionList.classList.add('hidden'); // Cache la liste si la saisie est vide
+            return;
         }
 
-        if (cityName.length > 2) {
+        if (cityName.length > 1) {
             const response = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=10&appid=${API_KEY}`);
             const data = await response.json();
+
             suggestionList.innerHTML = data.map(city => `<li data-name="${city.name}">${city.name} - ${city.country}</li>`).join("\n");
+
+            if (suggestionList.children.length > 0) {
+                suggestionList.classList.remove('hidden');
+            } else {
+                suggestionList.classList.add('hidden');
+            }
 
             const suggestions = Array.from(suggestionList.children);
             suggestions.forEach(suggestion => {
-                suggestion.addEventListener("click", autocomplete)
-            })
+                suggestion.addEventListener("click", autocomplete);
+            });
         }
     } catch (error) {
         console.error(error.message);
     }
 }
 
-const input = document.querySelector('#search-input');
-if (input) {
-    input.addEventListener('input', suggestCity);
-}

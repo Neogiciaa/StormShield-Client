@@ -313,9 +313,6 @@ main {
             grid-auto-flow: column;
 
             .weather-data {
-                /*min-width: fit-content;*/
-                /*max-width: 16vw;*/
-
                 .weather-date {
                     font-size: larger;
                 }
