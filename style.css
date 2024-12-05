@@ -115,14 +115,39 @@ main {
         text-align: center;
     }
 
-    #search-input {
-        grid-area: bar;
-        width: 16rem;
-        border: 1px solid light-dark(var(--dark-container-color), var(--light-container-color));
-        border-radius: var(--container-border-radius);
-        padding: 0.7rem;
-        text-align: center;
-        background-color: light-dark(var(--light-container-color), var(--dark-container-color));
+    .search-bar {
+        position: relative;
+
+        #search-input {
+            grid-area: bar;
+            width: 16rem;
+            border: 1px solid light-dark(var(--dark-container-color), var(--light-container-color));
+            border-radius: var(--container-border-radius);
+            padding: 0.7rem;
+            text-align: center;
+            background-color: light-dark(var(--light-container-color), var(--dark-container-color));
+        }
+
+        #search-suggestions {
+            list-style: none;
+            background-color: light-dark(var(--light-container-color), var(--dark-container-color));
+            border-radius: var(--container-border-radius);
+            position: absolute;
+            /*top: 100%; !* Place la liste directement sous l'input *!*/
+            width: 100%;
+            z-index: 10;
+            max-height: 200px; /* Ajoutez une hauteur max pour la liste */
+            overflow-y: auto;  /* Permet le scroll si la liste est trop longue */
+
+            li {
+                padding: 0 0.7rem;
+                border-radius: inherit;
+
+                &:hover {
+                    background-color: light-dark(var(--dark-container-color), var(--light-container-color));
+                }
+            }
+        }
     }
 
     #search-button {
@@ -151,7 +176,7 @@ main {
     grid-gap: 1rem;
     color: var(--main-element-color);
     text-align: center;
-    word-break: break-word;
+    word-break: break-all;
 
     .alert-container {
         display: grid;
@@ -184,6 +209,19 @@ main {
                     padding: 0.7rem;
                     width: 100%;
                 }
+            }
+        }
+
+        #alert-user {
+            color: white;
+            font-weight: bold;
+            background-color: red;
+            border: 0.2rem solid darkred;
+            border-radius: var(--container-border-radius);
+            padding: 0.7rem;
+
+            &:active {
+                background-color: darkred;
             }
         }
     }
@@ -240,9 +278,24 @@ main {
 
         .alert-container {
             grid-auto-flow: column;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-areas:
+            "high medium"
+            "button button";
             place-items: center;
             align-items: start;
+
+            #alert-high {
+                grid-area: high;
+            }
+
+             #alert-medium {
+                 grid-area: medium;
+             }
+
+            #alert-user {
+                grid-area: button;
+            }
 
             .alert-data {
                 .alert-list {

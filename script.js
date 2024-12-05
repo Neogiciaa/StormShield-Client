@@ -56,15 +56,55 @@ async function fetchWeatherData(lat, lon) {
     }
 }
 
-async function displayWeatherData(data) {
+function displayWeatherData(data) {
     data.forEach((weatherData) => {
         console.log(weatherData);
     });
+
+    createWeatherContainer(data);
+}
+
+function createWeatherContainer(weatherData) {
+    const weather = document.querySelector(".weater");
+    if (!weather) {return;}
+    // TODO fill .weather-container h2 and ul with data
+}
+
+function autocomplete(event) {
+    const searchInput = document.querySelector('#search-input');
+    searchInput.value = this.innerText;
+}
+
+async function suggestCity(event) {
+    const cityName = this.value.trim();
+    const suggestionList = document.querySelector('#search-suggestions');
+
+    try {
+        // TODO move fetch to backend and delete API_KEY before setting the project to public
+        const API_KEY = "1a85c27187a392a72295f56a04cf54bc"; // REMOVE THIS
+
+        if (!cityName) {
+            suggestionList.innerHTML = "";
+        }
+
+        if (cityName.length > 2) {
+            const response = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=10&appid=${API_KEY}`);
+            const data = await response.json();
+            suggestionList.innerHTML = data.map(city => `<li data-name="${city.name}">${city.name} - ${city.country}</li>`).join("\n");
+
+            const suggestions = Array.from(suggestionList.children);
+            suggestions.forEach(suggestion => {
+                suggestion.addEventListener("click", autocomplete)
+            })
+        }
+    } catch (error) {
+        console.error(error.message);
+    }
 }
 
 const input = document.querySelector('#search-input');
 if (input) {
-    input.addEventListener('input', autocomplete);
+    input.addEventListener('input', suggestCity);
 }
 
 const button = document.querySelector('#search-button');
