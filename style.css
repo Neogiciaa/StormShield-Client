@@ -129,18 +129,20 @@ main {
         }
 
         #search-suggestions {
+            margin-top: 0.4rem;
+            border: 1px solid white;
+            padding: 0.7rem;
             list-style: none;
             background-color: light-dark(var(--light-container-color), var(--dark-container-color));
             border-radius: var(--container-border-radius);
             position: absolute;
-            /*top: 100%; !* Place la liste directement sous l'input *!*/
             width: 100%;
             z-index: 10;
-            max-height: 200px; /* Ajoutez une hauteur max pour la liste */
-            overflow-y: auto;  /* Permet le scroll si la liste est trop longue */
+            max-height: 200px;
+            overflow-y: auto;
 
             li {
-                padding: 0 0.7rem;
+                padding: 0 0.4rem;
                 border-radius: inherit;
 
                 &:hover {
