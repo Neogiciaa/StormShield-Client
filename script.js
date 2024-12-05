@@ -113,6 +113,7 @@ function displayWeatherData(data) {
 function autocomplete(event) {
     const searchInput = document.querySelector('#search-input');
     searchInput.value = this.innerText;
+    const suggestionInput = document.querySelector('#search-suggestions');
 
     const city = event.target;
     const cityName = city.getAttribute("data-name");
@@ -122,6 +123,8 @@ function autocomplete(event) {
         fetchWeatherDataByCityName(cityName);
     }
 
+    suggestionInput.innerHTML = '';
+    suggestionInput.classList.add('hidden');
     event.preventDefault();
 }
 
@@ -162,4 +165,41 @@ async function suggestCity() {
         console.error(error.message);
     }
 }
+
+const signalBtn = document.querySelector('#alert-user');
+signalBtn.addEventListener('click', () => {
+    const modal = document.querySelector('.custom-alert-modal');
+    modal.style.display = 'flex';
+    createCustomAlertModal();
+})
+
+function createCustomAlertModal() {
+    const desc = document.querySelector('#custom-alert-description');
+    const emp = document.querySelector('#custom-alert-location');
+    const dat = document.querySelector('#custom-alert-date');
+    const createAlert = document.querySelector('#custom-alert-btn');
+
+    createAlert.addEventListener('click', (event) => {
+        event.preventDefault();
+
+        const list = document.querySelector('.custom-alert-list');
+
+        const li = document.createElement('li');
+        li.innerHTML = `
+            <p>Emplacement : ${emp.value}</p>
+            <p>Description : ${desc.value}</p>
+            <p>Date : ${dat.value}</p>
+        `;
+
+        list.appendChild(li);
+
+        const modal = document.querySelector('.custom-alert-modal');
+        modal.style.display = 'none';
+    });
+
+    desc.value = '';
+    emp.value = '';
+    dat.value = '';
+}
+
 
