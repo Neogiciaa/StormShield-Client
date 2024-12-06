@@ -111,7 +111,7 @@ function displayWeatherData(data) {
 
 }
 
-function autocomplete(event) {
+async function autocomplete(event) {
     const searchInput = document.querySelector('#search-input');
     searchInput.value = this.innerText;
     const suggestionInput = document.querySelector('#search-suggestions');
@@ -120,8 +120,12 @@ function autocomplete(event) {
     const cityName = city.getAttribute("data-name");
     searchInput.value = cityName;
 
+    const lat = localStorage.getItem('latitude');
+    const lon = localStorage.getItem('longitude');
+
     if (cityName.length > 1) {
-        fetchWeatherDataByCityName(cityName);
+        await fetchWeatherDataByCityName(cityName);
+        await fetchAlerts(lat, lon);
     }
 
     suggestionInput.innerHTML = '';
@@ -141,7 +145,7 @@ async function suggestCity() {
 
         if (!cityName) {
             suggestionList.innerHTML = "";
-            suggestionList.classList.add('hidden'); // Cache la liste si la saisie est vide
+            suggestionList.classList.add('hidden');
             return;
         }
 
