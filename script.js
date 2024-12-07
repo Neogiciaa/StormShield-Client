@@ -39,6 +39,15 @@ async function handleGeolocationSuccess(pos, modal) {
     localStorage.setItem('longitude', lon);
 
     await fetchWeatherData(lat, lon);
+
+    try {
+        const response = await axios.post('http://localhost:3000/api/createDangerZone');
+        console.log("Post fini")
+        const res = await response.json();
+        console.log("Res -> ", res.status);
+    } catch (error) {
+        console.log("error -> ", error);
+    }
 }
 
 function handleGeolocationError(modal) {
@@ -71,19 +80,6 @@ async function fetchWeatherDataByCityName(cityName) {
         console.error(error.message);
     }
 }
-
-const btn = document.querySelector('.geof');
-btn.addEventListener('click', async (e) => {
-    console.log("Btn clicked")
-    try {
-        const response = await axios.post('http://localhost:3000/api/createDangerZone');
-        console.log("Post fini")
-        const res = await response.json();
-        console.log("Res -> ", res.status);
-    } catch (error) {
-        console.log("error -> ", error);
-    }
-})
 
 function displayWeatherData(data) {
     const results = document.querySelector('.weather-container');
