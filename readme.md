@@ -24,4 +24,5 @@ In StormShield, you will be able to:
 
 ## Authors
 STAMP team - Passionated Web developers that code with ♥
+
 Stéphen Chevalier - Théo Piron - Antoine Stoykov - Mohamed Berrabah - Pierre Willemart
